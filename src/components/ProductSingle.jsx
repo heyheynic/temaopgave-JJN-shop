@@ -1,5 +1,5 @@
-const ProductSingle = () => {
-    return <div></div>;
-}
- 
+const ProductSingle = ({ title }) => {
+  return <div>{title}</div>;
+};
+
 export default ProductSingle;
