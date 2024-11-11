@@ -27,7 +27,7 @@ const Page = () => {
 
         <ul className="grid gap-6 p-6 rounded-lg max-w-4xl mx-auto sm:grid-cols-2 lg:grid-cols-3">
           {data.products.map(({ id, title }) => (
-            <ProductCard id={id} title={title} />
+            <ProductCard key={id} id={id} title={title} />
           ))}
         </ul>
         <div></div>
