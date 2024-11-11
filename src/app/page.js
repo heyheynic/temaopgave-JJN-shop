@@ -3,7 +3,7 @@ import PrimaryButton from "@/components/PrimaryButton";
 
 export default function Home() {
   return <div>
-    <Link href={}>
+    <Link href={`./products/page.jsx`}>
     <PrimaryButton />
     </Link>
   </div>;
