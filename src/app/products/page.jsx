@@ -26,8 +26,8 @@ const Page = () => {
         </p>
 
         <ul className="grid gap-6 p-6 rounded-lg max-w-4xl mx-auto sm:grid-cols-2 lg:grid-cols-3">
-          {data.products.map(({ id, title }) => (
-            <ProductCard key={id} id={id} title={title} />
+          {data.products.map(({ id, title, thumbnail, price, discountPercentage, stock }) => (
+            <ProductCard key={id} id={id} title={title} thumbnail={thumbnail} price={price} discountPercentage={discountPercentage} stock={stock} />
           ))}
         </ul>
         <div></div>
