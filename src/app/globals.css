@@ -3,8 +3,57 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /********** colors */
+  --background: #f4f4f4ff;
+  --foreground: #1b1917;
+  --white-smoke: #f4f4f4ff;
+  --redwood: #9f4a54ff;
+  --ebony: #545d4eff;
+  --ecru: #ab9a6dff;
+  --misty-rose: #e7d7d7ff;
+  --dun: #cec6abff;
+  --blue-munsell: #298a99ff;
+  --desert-sand: #ccad9bff;
+
+  /********** fonts  */
+  /* link: https://utopia.fyi/type/calculator/?c=320,16,1.2,1000,18,1.25,7,0,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+
+  /* All ordinary texts, paragraphs, descriptions: 16px → 18px */
+  --text: clamp(1rem, 0.9412rem + 0.2941vw, 1.125rem);
+
+  /* empaphized text: 23.04px → 28.125px */
+  --emphasize: clamp(1.44rem, 1.2904rem + 0.7478vw, 1.7578rem);
+
+  /* sub-sub headers, h3, h4, etc: 27.648px → 35.1563px  */
+  --sub-subtitle: clamp(1.728rem, 1.5072rem + 1.1042vw, 2.1973rem);
+
+  /* sub headers, h2, etc: 33.1776px → 43.9453px */
+  --subtitle: clamp(2.0736rem, 1.7569rem + 1.5835vw, 2.7466rem);
+
+  /* Ordinary title: 47.7757px → 68.6646px */
+  --title: clamp(2.986rem, 2.3716rem + 3.0719vw, 4.2915rem);
+
+  /* Big title: 57.3309px → 85.8307px */
+  --big-title: clamp(3.5832rem, 2.745rem + 4.1911vw, 5.3644rem);
+
+  /********* spacing and padding  */
+
+  /* Space 3xs-2xs: 5px → 10px */
+  --space-3xs: clamp(0.3125rem, 0.2038rem + 0.5435vw, 0.625rem);
+  /* Space 2xs-xs: 9px → 15px */
+  --space-2xs: clamp(0.5625rem, 0.4321rem + 0.6522vw, 0.9375rem);
+  /* Space xs-s: 14px → 20px */
+  --space-xs: clamp(0.875rem, 0.7446rem + 0.6522vw, 1.25rem);
+  /* Space s-m: 18px → 30px */
+  --space-s: clamp(1.125rem, 0.8641rem + 1.3043vw, 1.875rem);
+  /* Space m-l: 27px → 40px */
+  --space-m: clamp(1.6875rem, 1.4049rem + 1.413vw, 2.5rem);
+  /* Space l-xl: 36px → 60px */
+  --space-l: clamp(2.25rem, 1.7283rem + 2.6087vw, 3.75rem);
+  /* Space xl-2xl: 54px → 80px */
+  --space-xl: clamp(3.375rem, 2.8098rem + 2.8261vw, 5rem);
+  /* Space 2xl-3xl: 72px → 120px */
+  --space-2xl: clamp(4.5rem, 3.4565rem + 5.2174vw, 7.5rem);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -18,4 +67,38 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* homepage background */
+.bg-shopping {
+  background-image: url("https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  background-size: cover;
+  background-position: center;
+}
+
+@layer utilities {
+  .text-normal {
+    line-height: 1;
+  }
+  .text-emphasize {
+    line-height: 1;
+  }
+  .text-sub-subtitle {
+    line-height: 1;
+  }
+  .text-subtitle {
+    line-height: 1;
+  }
+  .text-title {
+    line-height: 0.7;
+  }
+  .text-big-title {
+    line-height: 0.9;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply py-2xs px-xs w-fit rounded-md hover:bg-black hover:text-white drop-shadow-lg active:bg-dark active:text-white text-white text-nowrap;
+  }
 }

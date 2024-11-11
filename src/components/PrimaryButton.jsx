@@ -1,5 +1,17 @@
-const PrimaryButton = ({btnText}) => {
-    return <div className="p-4 border-2 w-fit rounded-md border-black hover:bg-black hover:text-white">{btnText}</div>;
-}
- 
+const PrimaryButton = ({ btnText, theme = "default" }) => {
+  const themes =
+    theme === "red"
+      ? "bg-accent "
+      : theme === "white"
+      ? "bg-white text-black outline outline-2 hover:outline-none"
+      : theme === "black"
+      ? "bg-black"
+      : "bg-dark "; // default
+  return (
+    <div className={`btn text-normal ${themes}`}>
+      {btnText}
+    </div>
+  );
+};
+
 export default PrimaryButton;
