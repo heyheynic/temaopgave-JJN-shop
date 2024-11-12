@@ -31,9 +31,8 @@ const Page = () => {
             alt="placeholder image"
           ></Image>
           <div>
-            <h3 className="after:content-['antal'] after:px-2 after:font-bold ">
-              {data.title}
-            </h3>
+            <h3>{data.title}</h3>
+            <span>antal</span>
             <p>{data.price}$</p>
           </div>
         </div>
@@ -46,16 +45,15 @@ const Page = () => {
             alt="placeholder image"
           ></Image>
           <div>
-            <h3 className="after:content-['antal'] after:px-2 after:font-bold ">
-              {data.title}
-            </h3>
+            <h3>{data.title}</h3>
+            <span>antal</span>
             <p>{data.price}$</p>
           </div>
         </div>
       </section>
       <section className="flex flex-col items-center justify-center text-center">
         <p>
-          Your total is : <span>{}</span>
+          Your total is : <span>total</span>
         </p>
         <PrimaryButton theme="black" btnText="Pay"></PrimaryButton>
       </section>
