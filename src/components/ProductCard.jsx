@@ -3,23 +3,7 @@ import Image from "next/image";
 import PrimaryButton from "./PrimaryButton";
 import ProductCardCTA from "./ProductCardCTA";
 
-//   /* Render the filtered products as cards */
 
-// <ul className="grid gap-m mx-auto sm:grid-cols-3 lg:grid-cols-4 mb-m">
-//   {filteredProducts.map(
-//     ({ id, title, thumbnail, price, discountPercentage, stock }) => (
-//       <ProductCard
-//         key={id}
-//         id={id}
-//         title={title}
-//         thumbnail={thumbnail}
-//         price={price}
-//         discountPercentage={discountPercentage}
-//         stock={stock}
-//       />
-//     )
-//   )}
-// </ul>;
 
 const ProductCard = ({
   id,
@@ -28,12 +12,17 @@ const ProductCard = ({
   price,
   discountPercentage,
   stock,
+  addToCart, //function from products page.jsx
 }) => {
   // Calculating discounted price if discountPercentage has a value.
   // price - (price * discountPercentage) / 100 is what calculates the price
   const discountedPrice = discountPercentage
     ? price - (price * discountPercentage) / 100
     : null;
+
+    const handleAddToCart = () => {
+      addToCart({ id, title, thumbnail, price, discountPercentage, stock})
+    }
   return (
     // Gives the list items a opacity of 50%, and no pointer events (you can't click on it) if stock is === 0.
     <li
@@ -77,13 +66,7 @@ const ProductCard = ({
           <PrimaryButton
             btnText={"Add to Cart"}
             theme={"red"}
-            key={id}
-            id={id}
-            title={title}
-            thumbnail={thumbnail}
-            price={price}
-            discountPercentage={discountPercentage}
-            stock={stock}
+         onClick={handleAddToCart} 
           />
         ) : (
           <PrimaryButton btnText={"Sold Out"} theme={"soldOut"} />
