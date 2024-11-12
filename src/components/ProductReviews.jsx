@@ -5,7 +5,7 @@ const ProductReviews = ({ reviews }) => {
   //finder den totale rating for reviews
   const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
 
-  //finder den avarage rating for reviews
+  //finder den avarage rating for reviews om til et helt nummer
   const averageRatingFullStars = Math.floor(totalRating / reviews.length);
 
   const emptyStars = 5 - averageRatingFullStars;
@@ -31,7 +31,7 @@ const ProductReviews = ({ reviews }) => {
         {/* skal have noget id til at finde dens reveiw */}
 
         {reviews.map((review, i) => {
-          //laver reviw ratingen om til et number
+          //laver reviw ratingen om til et helt number
           const fullStars = Math.floor(review.rating);
           const emptyStars = 5 - fullStars;
 
