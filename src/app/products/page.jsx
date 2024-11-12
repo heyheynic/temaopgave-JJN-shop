@@ -16,17 +16,29 @@ const Page = () => {
   // State to track the current selected category and filtered products
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Update filtered products whenever data or category changes
   useEffect(() => {
     if (data) {
-      const products = selectedCategory === "all" ? data.products : data.products.filter((product) => product.category === selectedCategory);
+      // Filter products based on category
+      let products = selectedCategory === "all" ? data.products : data.products.filter((product) => product.category === selectedCategory);
+
+      // Filter products based on search query
+      if (searchQuery) {
+        products = products.filter((product) => product.title.toLowerCase().includes(searchQuery.toLowerCase()));
+      }
+
       setFilteredProducts(products);
     }
-  }, [data, selectedCategory]);
+  }, [data, selectedCategory, searchQuery]);
 
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
+  };
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
   };
 
   if (error) return <div>failed to load</div>;
@@ -37,7 +49,7 @@ const Page = () => {
       <div>
         <div>
           <CategoryFilter onCategoryChange={handleCategoryChange} />
-          <SearchBar />
+          <SearchBar onSearch={handleSearch} />
         </div>
 
         <p>
