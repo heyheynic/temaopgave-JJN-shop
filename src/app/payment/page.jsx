@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import PrimaryButton from "@/components/PrimaryButton";
 
 import useSWR from "swr";
 const fetcher = (url) => fetch(url).then((res) => res.json());
@@ -53,8 +54,10 @@ const Page = () => {
         </div>
       </section>
       <section className="flex flex-col items-center justify-center text-center">
-        <p>Du skal betale i alt </p>
-        <p>Placeholder Button</p>
+        <p>
+          Your total is : <span>{}</span>
+        </p>
+        <PrimaryButton theme="black" btnText="Pay"></PrimaryButton>
       </section>
     </div>
   );
