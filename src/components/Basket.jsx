@@ -3,10 +3,9 @@
 
 import { useState, useEffect, useRef } from "react";
 import { TbShoppingBag } from "react-icons/tb";
-import PaymentProductCard from "./PaymentProductCard";
+import BasketProductCard from "./BasketProductCard";
 import PrimaryButton from "./PrimaryButton";
-
-
+import Link from "next/link";
 
 const Basket = ({ cart }) => {
   const [isCartVisible, setIsCartVisible] = useState(false);
@@ -28,7 +27,7 @@ const Basket = ({ cart }) => {
     }
   };
 
-  // sets up the mousedown event listener when isCartVisible is true, and removes it when isCartVisible is false. 
+  // sets up the mousedown event listener when isCartVisible is true, and removes it when isCartVisible is false.
   useEffect(() => {
     if (isCartVisible) {
       //if true, it adds "mousedown" event listener to listen for clicks
@@ -59,7 +58,7 @@ const Basket = ({ cart }) => {
       {isCartVisible && (
         <div
           ref={cartRef} // Attach the ref to the pop-up container
-          className="cart__popup__container absolute shadow-lg bg-white border border-medium rounded-lg py-2xs px-xs mt-m w-64 -right-2 z-50"
+          className="cart__popup__container absolute shadow-lg bg-white border border-medium rounded-lg py-2xs px-xs mt-m w-72 -right-2 z-50"
         >
           <div className="cart__popup__header flex justify-between items-center">
             <h3 className="text-lg font-semibold justify-center">Your Cart</h3>
@@ -72,12 +71,22 @@ const Basket = ({ cart }) => {
           </div>
           <ul className="cart__product__list grid grid-rows-[auto] gap-2 py-2 px-1">
             {cart.map((item) => (
-              <PaymentProductCard key={item} id={item} />
+              <BasketProductCard
+                key={item.id}
+                id={item.id}
+                src={item.thumbnail}
+                productTitle={item.title}
+                price={item.price}
+              />
             ))}
           </ul>
 
+        
+
           <div className="cart__action">
-            <PrimaryButton btnText={"Proceed to checkout"} theme="red" />
+            <Link href={`../app/payment/`}>
+              <PrimaryButton btnText={"Proceed to checkout"} theme="red" />
+            </Link>
           </div>
         </div>
       )}

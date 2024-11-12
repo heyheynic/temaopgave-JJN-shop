@@ -1,4 +1,4 @@
-const PrimaryButton = ({ btnText, theme = "default" }) => {
+const PrimaryButton = ({ btnText, theme = "default", onClick }) => {
   const themes =
     theme === "red"
       ? "bg-accent "
@@ -10,7 +10,7 @@ const PrimaryButton = ({ btnText, theme = "default" }) => {
       ? "bg-dark hover:bg-dark cursor-default"
       : "bg-dark "; // default
   return (
-    <div className={`btn text-normal ${themes}`}>
+    <div className={`btn text-normal ${themes}`} onClick={onClick}>
       {btnText}
     </div>
   );
