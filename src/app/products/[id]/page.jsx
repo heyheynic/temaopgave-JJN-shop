@@ -11,17 +11,15 @@ const Page = async ({ params }) => {
   let response = await fetch(`https://dummyjson.com/products/${id}`);
   let data = await response.json();
 
-  const { title, reviews } = data;
-
   return (
     <div className="max-w-[80dvw] m-auto my-m">
       <Link href={`../products/`} className="flex items-center gap-2 mb-m">
         <IoIosArrowBack />
         Tilbage
       </Link>
-      <ProductSingle title={title} />
+      <ProductSingle product={data} />
       <div className="border-b-2 my-l"></div>
-      <ProductReviews reviews={reviews} />
+      <ProductReviews reviews={data.reviews} />
     </div>
   );
 };
