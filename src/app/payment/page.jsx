@@ -42,7 +42,7 @@ const Page = () => {
       </ul>
       <section className="text-sub-subtitle flex flex-col items-center justify-center text-center">
         <h4>
-          Your total is : <span>${total}</span>
+          Your total is : <span>{total.toFixed(2)}$</span>
         </h4>
         <PrimaryButton theme="black" btnText="Pay"></PrimaryButton>
       </section>
