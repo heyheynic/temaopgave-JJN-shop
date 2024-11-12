@@ -1,24 +1,10 @@
 "use client";
 import { FaRegStar, FaStar } from "react-icons/fa";
 
-import useSWR from "swr";
-const fetcher = (url) => fetch(url).then((res) => res.json());
+const ProductReviews = ({ reviews }) => {
+  const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
 
-const ProductReviews = ({ id }) => {
-  const { data, error, isLoading } = useSWR(
-    ` https://dummyjson.com/products/${id}`,
-    fetcher
-  );
-
-  if (error) return <div>failed to load</div>;
-  if (isLoading) return <div>loading...</div>;
-
-  const totalRating = data.reviews.reduce(
-    (sum, review) => sum + review.rating,
-    0
-  );
-
-  const averageRatingFullStars = totalRating / data.reviews.length;
+  const averageRatingFullStars = totalRating / reviews.length;
 
   const emptyStars = 5 - averageRatingFullStars;
 
@@ -39,7 +25,7 @@ const ProductReviews = ({ id }) => {
       <article className="flex flex-col  flex-nowrap gap-3 sm:flex-wrap sm:flex-row justify-center">
         {/* skal have noget id til at finde dens reveiw */}
 
-        {data.reviews.map((review, i) => {
+        {reviews.map((review, i) => {
           const fullStars = Math.floor(review.rating);
           const emptyStars = 5 - fullStars;
 

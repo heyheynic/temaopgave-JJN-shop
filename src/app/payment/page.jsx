@@ -1,10 +1,7 @@
 "use client";
-import Image from "next/image";
+
 import PrimaryButton from "@/components/PrimaryButton";
-import { FaRegStar, FaStar } from "react-icons/fa";
-
 import PaymentProductCard from "@/components/PaymentProductCard";
-
 import useSWR from "swr";
 import ProductReviews from "@/components/ProductReviews";
 const fetcher = (url) => fetch(url).then((res) => res.json());
