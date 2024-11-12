@@ -1,10 +1,12 @@
 "use client";
 import Image from "next/image";
 import PrimaryButton from "@/components/PrimaryButton";
+import { FaRegStar, FaStar } from "react-icons/fa";
 
 import PaymentProductCard from "@/components/PaymentProductCard";
 
 import useSWR from "swr";
+import ProductReviews from "@/components/ProductReviews";
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const Page = () => {
@@ -24,19 +26,22 @@ const Page = () => {
 
   return (
     <div>
+      <ProductReviews id={1}></ProductReviews>
+
       <h1 className="text-title text-center sm:text-left capitalize py-4 px-1">
         Your basket
       </h1>
 
       <ul className="grid grid-rows-[auto] gap-2  py-2 px-1 ">
-        {data.products.map((product) => [
+        {data.products.map((product) => (
           <PaymentProductCard
             id={product.id}
             src={product.thumbnail}
             productTitle={product.title}
             price={product.price}
-          ></PaymentProductCard>,
-        ])}
+            shipping={product.shippingInformation}
+          ></PaymentProductCard>
+        ))}
       </ul>
       <section className="text-sub-subtitle flex flex-col items-center justify-center text-center">
         <h4>

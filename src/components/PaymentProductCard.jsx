@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const PaymentProductCard = ({ id, src, productTitle, price }) => {
+const PaymentProductCard = ({ shipping, id, src, productTitle, price }) => {
   return (
     <li
       key={id}
@@ -11,6 +11,7 @@ const PaymentProductCard = ({ id, src, productTitle, price }) => {
         <h3 className="text-sub-subtitle">{productTitle}</h3>
 
         <p className="text-text">{price}$</p>
+        <p>{shipping}</p>
       </div>
       <span className="text-text ml-[auto] px-2">antal</span>
     </li>
