@@ -16,14 +16,17 @@ const SearchBar = ({ onSearch }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="flex ">
       <input
         type="text"
         placeholder="Search for products..."
         value={query} // Bind input value to the query state
         onChange={handleInputChange} // Call handleInputChange when input changes
+        className="px-4 py-1.5 rounded-l-md text-foreground bg-background border-2 border-accent focus:outline-none "
       />
-      <button type="submit">Search</button>
+      <button type="submit" className="px-4 py-2 bg-accent text-white rounded-r-md hover:bg-secondary transition duration-300">
+        Search
+      </button>
     </form>
   );
 };

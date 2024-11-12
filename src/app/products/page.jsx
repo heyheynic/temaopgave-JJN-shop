@@ -11,7 +11,7 @@ import useSWR from "swr";
 const fetcher = (url) => fetch(url).then((res) => res.json()); // Fetcher function for SWR to fetch data from a URL
 
 const Page = () => {
-  const { data, error, isLoading } = useSWR("https://dummyjson.com/products", fetcher); // Using SWR to fetch product data from an API
+  const { data, error, isLoading } = useSWR("https://dummyjson.com/products?limit=50", fetcher); // Using SWR to fetch product data from an API
 
   // State to track the filtered list of products, selected category, and search query
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -49,21 +49,21 @@ const Page = () => {
   if (isLoading) return <div>loading...</div>;
 
   return (
-    <div>
-      <h1>Products</h1>
+    <div className="max-w-[80dvw] m-auto">
+      <h1 className="text-title my-m">Products</h1>
       <div>
-        <div>
+        <div className="flex justify-between my-s gap-s flex-wrap">
           <CategoryFilter onCategoryChange={handleCategoryChange} /> {/* Pass the category change handler */}
           <SearchBar onSearch={handleSearch} /> {/* Pass the search handler */}
         </div>
 
         {/* Display the count of filtered products */}
         <p>
-          <span>{filteredProducts.length}</span>items
+          <span>{filteredProducts.length}</span> items
         </p>
 
         {/* Render the filtered products as cards */}
-        <ul className="grid gap-6 p-6 rounded-lg max-w-4xl mx-auto sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="grid gap-m mx-auto sm:grid-cols-3 lg:grid-cols-4 mb-m">
           {filteredProducts.map(({ id, title, thumbnail, price, discountPercentage, stock }) => (
             <ProductCard key={id} id={id} title={title} thumbnail={thumbnail} price={price} discountPercentage={discountPercentage} stock={stock} />
           ))}
