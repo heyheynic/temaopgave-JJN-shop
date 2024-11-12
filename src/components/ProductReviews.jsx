@@ -2,9 +2,11 @@
 import { FaRegStar, FaStar } from "react-icons/fa";
 
 const ProductReviews = ({ reviews }) => {
+  //finder den totale rating for reviews
   const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
 
-  const averageRatingFullStars = totalRating / reviews.length;
+  //finder den avarage rating for reviews
+  const averageRatingFullStars = Math.floor(totalRating / reviews.length);
 
   const emptyStars = 5 - averageRatingFullStars;
 
@@ -14,9 +16,12 @@ const ProductReviews = ({ reviews }) => {
     <section>
       <div className="flex flex-row items-center ">
         <h2 className="text-title">Reviews</h2>
+
+        {/* laver fullstarts ud fra "averageRatingFullStars" */}
         {[...Array(averageRatingFullStars)].map((i) => (
           <FaStar className="text-[--redwood] text-title" key={i} />
         ))}
+
         {[...Array(emptyStars)].map((i) => (
           <FaRegStar className="text-[--redwood] text-title" key={i} />
         ))}
@@ -26,6 +31,7 @@ const ProductReviews = ({ reviews }) => {
         {/* skal have noget id til at finde dens reveiw */}
 
         {reviews.map((review, i) => {
+          //laver reviw ratingen om til et number
           const fullStars = Math.floor(review.rating);
           const emptyStars = 5 - fullStars;
 
