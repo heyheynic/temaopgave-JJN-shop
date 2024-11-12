@@ -76,6 +76,7 @@ body {
   background-position: center;
 }
 
+
 @layer utilities {
   .text-normal {
     line-height: 1;
@@ -99,6 +100,6 @@ body {
 
 @layer components {
   .btn {
-    @apply py-2xs px-xs w-fit rounded-md hover:bg-black hover:text-white drop-shadow-lg active:bg-dark active:text-white text-white text-nowrap;
+    @apply py-2xs px-xs w-fit h-fit rounded-md hover:bg-black hover:text-white drop-shadow-lg active:bg-dark active:text-white text-white text-nowrap cursor-pointer;
   }
 }

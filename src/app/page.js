@@ -17,7 +17,7 @@ export default function Home() {
         row-span-full self-center py-s px-xs"
           >
             <Link href={`./products/`}>
-              <PrimaryButton btnText="Go to products" theme="red" />
+              <PrimaryButton btnText="Go shopping" theme="red" />
             </Link>
           </div>
         </div>
