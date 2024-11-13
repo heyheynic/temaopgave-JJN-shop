@@ -34,7 +34,8 @@ const ProductReviews = ({ reviews }) => {
             id={i}
             reviewComment={review.comment}
             reviewRating={review.rating}
-            reviewerName={review.reviewerName}
+            //
+            reviewerName={review.reviewerName.split(" ")[0]}
           ></ProductSingleReview>
         ))}
       </article>

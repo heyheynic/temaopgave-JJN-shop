@@ -26,8 +26,9 @@ const ProductSingleReview = ({
           <FaRegStar className="text-[--redwood] text-sub-subtitle" key={i} />
         ))}
       </div>
+
       <h4 className="text-emphasize">{reviewerName}</h4>
-      <p className={fullStars >= 3 ? `text-[--blue-munsell]` : ``}>
+      <p className={fullStars >= 4 ? `text-[--blue-munsell]` : ``}>
         - {reviewComment}
       </p>
     </div>

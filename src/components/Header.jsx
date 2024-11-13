@@ -1,32 +1,29 @@
 import Link from "next/link";
+import { FiHome } from "react-icons/fi";
+import { RiShoppingBag3Line } from "react-icons/ri";
 
 const Header = () => {
   return (
-    <header className="py-4 px-2 border-b-2 border-black">
+    <header className="py-4 px-2 border-b-2 border-[--foreground]">
       <nav>
-        <ul className="flex flex-row items-center justify-start gap-2 ">
+        <ul className="justify-start   flex flex-row items-center gap-2 ">
           <li>
             <Link
-              className=" bg-black text-white py-2 px-4 rounded-full outline outline-black outline-1 hover:outline-offset-2 focus:outline-offset-2 capitalize"
+              className="flex flex-row items-center gap-1 bg-[--foreground] text-[--background] py-2 px-4 rounded-[5px] outline outline-[--foreground] outline-1 hover:outline-offset-2 focus:outline-offset-2 capitalize"
               href={`/`}
             >
-              Home
+              <FiHome className="text-text text-[--background]" />
+              <span>Home</span>
             </Link>
           </li>
+
           <li>
             <Link
-              className=" bg-black text-white py-2 px-4 rounded-full outline outline-black outline-1  hover:outline-offset-2 focus:outline-offset-2 capitalize"
-              href={`/payment`}
-            >
-              Basket
-            </Link>
-          </li>
-          <li>
-            <Link
-              className="bg-black text-white py-2 px-4 rounded-full outline outline-black outline-1  hover:outline-offset-2 focus:outline-offset-2 capitalize"
+              className="flex flex-row items-center gap-1 bg-[--foreground] text-[--background] py-2 px-4 rounded-[5px] outline outline-[--foreground] outline-1 hover:outline-offset-2 focus:outline-offset-2 capitalize"
               href={`/products`}
             >
-              Product List
+              <RiShoppingBag3Line className="text-text text-[--background]" />
+              <span>Products</span>
             </Link>
           </li>
         </ul>
