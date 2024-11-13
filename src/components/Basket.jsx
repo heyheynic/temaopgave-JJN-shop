@@ -9,6 +9,15 @@ import Link from "next/link";
 
 const Basket = ({ cart, updateCartQuantity }) => {
   const [isCartVisible, setIsCartVisible] = useState(false);
+
+
+   const selectedProducts = cart
+     .map(
+       (product) =>
+         `${product.id}-${product.quantity}`
+     )
+     .join("&");
+
   const itemCounter = cart.length;
   const cartRef = useRef(null); // reference to the cart pop-up, this will make it so when one clicks outside of cart popup, it will close
 
@@ -57,7 +66,7 @@ const Basket = ({ cart, updateCartQuantity }) => {
 
       {isCartVisible && (
         <div
-          ref={cartRef} // Attach the ref to the pop-up container
+          ref={cartRef} // attach the ref to the pop-up container
           className="cart__popup__container absolute shadow-lg bg-white border border-medium rounded-lg py-2xs px-xs mt-m w-72 -right-2 z-50"
         >
           <div className="cart__popup__header flex justify-between items-center">
@@ -70,22 +79,22 @@ const Basket = ({ cart, updateCartQuantity }) => {
             </button>
           </div>
           <ul className="cart__product__list grid grid-rows-[auto] gap-2 py-2 px-1">
-            {cart.map((item) => (
+            {cart.map((product) => (
               <BasketProductCard
-                key={item.id}
-                id={item.id}
-                src={item.thumbnail}
-                productTitle={item.title}
-                price={item.price}
-                stock={item.stock}
-                quantity={item.quantity}
-                updateCartQuantity={updateCartQuantity} 
+                key={product.id}
+                id={product.id}
+                thumbnail={product.thumbnail}
+                title={product.title}
+                price={product.price}
+                stock={product.stock}
+                quantity={product.quantity}
+                updateCartQuantity={updateCartQuantity}
               />
             ))}
           </ul>
 
           <div className="cart__action">
-            <Link href={`./payment/`}>
+            <Link href={`./payment?items=${selectedProducts}`} >
               <PrimaryButton btnText={"Proceed to checkout"} theme="red" />
             </Link>
           </div>

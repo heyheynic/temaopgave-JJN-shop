@@ -3,26 +3,38 @@ import Image from "next/image";
 import PrimaryButton from "./PrimaryButton";
 import ProductCardCTA from "./ProductCardCTA";
 
-
-
 const ProductCard = ({
-  id,
-  title,
-  thumbnail,
-  price,
-  discountPercentage,
-  stock,
+  product,
   addToCart, //function from products page.jsx
 }) => {
+
+   const { id, title, thumbnail, price, discountPercentage, stock } = product;
   // Calculating discounted price if discountPercentage has a value.
   // price - (price * discountPercentage) / 100 is what calculates the price
   const discountedPrice = discountPercentage
     ? price - (price * discountPercentage) / 100
     : null;
 
-    const handleAddToCart = () => {
-      addToCart({ id, title, thumbnail, price, discountPercentage, stock})
-    }
+  const handleAddToCart = () => {
+    addToCart({ ...product });
+  };
+
+  // slugify name string from JSON to an URL-friendly slug. Got this from https://dev.to/bybydev/how-to-slugify-a-string-in-javascript-4o9n
+  // I know there exists a specific npm-install but I wanted to try this
+  function slugify(str) {
+    str = str.replace(/^\s+|\s+$/g, ""); // trim leading/trailing white space
+    str = str.toLowerCase(); // convert string to lowercase
+    str = str
+      .replace(/[^a-z0-9 -]/g, "") // remove any non-alphanumeric characters
+      .replace(/\s+/g, "-") // replace spaces with hyphens
+      .replace(/-+/g, "-"); // remove consecutive hyphens
+    return str;
+  }
+
+  const titleToSlug = title;
+  // const slug = `${id}+${slugify(titleToSlug)}`
+  const slug = slugify(titleToSlug);
+
   return (
     // Gives the list items a opacity of 50%, and no pointer events (you can't click on it) if stock is === 0.
     <li
@@ -32,7 +44,7 @@ const ProductCard = ({
         discountPercentage ? "shadow-md px-3xs py-2xs hover:shadow-2xl" : ""
       }`}
     >
-      <Link href={`/products/${id}`} className="grid gap-xs">
+      <Link href={`/products/${id}-${slug}`} className="grid gap-xs">
         <div className="image__bookmark__grid grid grid-rows-[1fr] ">
           <div className="row-span-full col-span-full  m-auto">
             <Image src={thumbnail} width={200} height={200} alt={title} />
@@ -66,7 +78,7 @@ const ProductCard = ({
           <PrimaryButton
             btnText={"Add to Cart"}
             theme={"red"}
-         onClick={handleAddToCart} 
+            onClick={handleAddToCart}
           />
         ) : (
           <PrimaryButton btnText={"Sold Out"} theme={"soldOut"} />

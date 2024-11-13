@@ -3,8 +3,8 @@ import Image from "next/image";
 
 const BasketProductCard = ({
   id,
-  src,
-  productTitle,
+  thumbnail,
+  title,
   price,
   stock,
   quantity,
@@ -34,9 +34,9 @@ const BasketProductCard = ({
       key={id}
       className="flex flex-row justify-start border-2 border-[--redwood] rounded-md max-w-[65ch]"
     >
-      <Image src={src} width={100} height={100} alt="placeholder image"></Image>
+      <Image src={thumbnail} width={100} height={100} alt="placeholder image"></Image>
       <div>
-        <h3 className="text-empahize">{productTitle}</h3>
+        <h3 className="text-empahize">{title}</h3>
         <p className="text-text">${price}</p>
         <div className="quantity__counter__container flex items-center space-x-4">
           <button
