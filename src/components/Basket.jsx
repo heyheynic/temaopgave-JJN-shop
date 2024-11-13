@@ -7,7 +7,7 @@ import BasketProductCard from "./BasketProductCard";
 import PrimaryButton from "./PrimaryButton";
 import Link from "next/link";
 
-const Basket = ({ cart }) => {
+const Basket = ({ cart, updateCartQuantity }) => {
   const [isCartVisible, setIsCartVisible] = useState(false);
   const itemCounter = cart.length;
   const cartRef = useRef(null); // reference to the cart pop-up, this will make it so when one clicks outside of cart popup, it will close
@@ -77,11 +77,12 @@ const Basket = ({ cart }) => {
                 src={item.thumbnail}
                 productTitle={item.title}
                 price={item.price}
+                stock={item.stock}
+                quantity={item.quantity}
+                updateCartQuantity={updateCartQuantity} 
               />
             ))}
           </ul>
-
-        
 
           <div className="cart__action">
             <Link href={`../app/payment/`}>
