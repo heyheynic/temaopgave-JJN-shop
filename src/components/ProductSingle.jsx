@@ -5,10 +5,11 @@ import Image from "next/image";
 // useState: This is used to store the current index of the image that is selected by the user
 // useRef: This hook is used to create a reference (scrollRef) to the scroll container
 import { useState, useRef } from "react";
+import ProductAccordionItem from "./ProductAccordionItem";
 
 const ProductSingle = ({ product }) => {
   // The product object is passed in as a prop, and we destructure it to get the variables (images is an array)
-  const { title, images, description, stock, price, discountPercentage } = product;
+  const { title, images, description, stock, price, discountPercentage, brand, warrantyInformation, shippingInformation, sku, weight, dimensions } = product;
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0); // Track current image index
   const scrollRef = useRef(null); // Reference to the scroll container
@@ -43,11 +44,36 @@ const ProductSingle = ({ product }) => {
 
       {/* Product description */}
       <div>
-        {stock === 0 && <p className="text-red-500 mb-2xs">Out of stock</p>}
+        {stock === 0 && <p className="text-red-700 mb-2xs">Out of stock</p>}
+        <p className="pb-3xs text-medium">{brand}</p>
         <p className="text-subtitle">{title}</p>
         <p className="max-w-[55ch] my-xs">{description}</p>
-        {discountPercentage && <p className="text-red-700">Now $ {price - (price / 100) * discountPercentage}</p>}
-        <p className={`{discountPercentage} ? text-gray-300 : "" `}>$ {price}</p>
+        {discountPercentage ? (
+          <div>
+            <p className="text-red-700 font-bold text-emphasize">Now ${(price - (price / 100) * discountPercentage).toFixed(2)}</p>
+            <p className="py-3xs font-thin	">
+              Was ${price} <span className="text-red-700">(-{discountPercentage}%)</span>
+            </p>
+          </div>
+        ) : (
+          <p className="font-bold emphasize">${price}</p>
+        )}
+        <section>
+          <ProductAccordionItem
+            title="Product information"
+            content={
+              <div>
+                <div>Weight: {weight} gram</div>
+                <div>
+                  Dimensions: {dimensions.width} / {dimensions.height} / {dimensions.depth}
+                </div>
+                <div>SKU: {sku}</div>
+              </div>
+            }
+          />
+          <ProductAccordionItem title="Warranty" content={warrantyInformation} />
+          <ProductAccordionItem title="Shipping" content={shippingInformation} />
+        </section>
       </div>
 
       {/* Thumbnail navigation */}
