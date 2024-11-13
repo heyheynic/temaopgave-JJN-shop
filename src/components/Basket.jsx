@@ -85,7 +85,7 @@ const Basket = ({ cart, updateCartQuantity }) => {
           </ul>
 
           <div className="cart__action">
-            <Link href={`../app/payment/`}>
+            <Link href={`./payment/`}>
               <PrimaryButton btnText={"Proceed to checkout"} theme="red" />
             </Link>
           </div>
