@@ -1,5 +1,6 @@
 "use client";
 import { FaRegStar, FaStar } from "react-icons/fa";
+import ProductSingleReview from "./ProductSingleReview";
 
 const ProductReviews = ({ reviews }) => {
   //finder den totale rating for reviews
@@ -14,50 +15,28 @@ const ProductReviews = ({ reviews }) => {
 
   return (
     <section>
-      <div className="flex flex-row items-center ">
-        <h2 className="text-title">Reviews</h2>
+      <div className="flex flex-row items-end py-5 ">
+        <h2 className="text-title px-2">Reviews</h2>
 
         {/* laver fullstarts ud fra "averageRatingFullStars" */}
-        {[...Array(averageRatingFullStars)].map((i) => (
-          <FaStar className="text-[--redwood] text-title" key={i} />
+        {[...Array(averageRatingFullStars)].map((star, i) => (
+          <FaStar className="text-[--redwood] text-subtitle" key={i} />
         ))}
 
-        {[...Array(emptyStars)].map((i) => (
-          <FaRegStar className="text-[--redwood] text-title" key={i} />
+        {[...Array(emptyStars)].map((star, i) => (
+          <FaRegStar className="text-[--redwood] text-sub-subtitle" key={i} />
         ))}
       </div>
 
-      <article className="flex flex-col  flex-nowrap gap-3 sm:flex-wrap sm:flex-row justify-center">
-        {/* skal have noget id til at finde dens reveiw */}
-
-        {reviews.map((review, i) => {
-          //laver reviw ratingen om til et helt number
-          const fullStars = Math.floor(review.rating);
-          const emptyStars = 5 - fullStars;
-
-          return (
-            <div key={i} className="flex flex-col gap-1 py-3 px-2">
-              <div className=" flex flex-row items-center text-subtitle">
-                <h2 className="text-[--redwood] text-sub-subtitle">
-                  {review.rating}/5
-                </h2>
-
-                {/* laver en array med fullstarts og giver dem en unik key som er deres index */}
-                {[...Array(fullStars)].map((i) => (
-                  <FaStar className="text-[--redwood]" key={i} />
-                ))}
-
-                {[...Array(emptyStars)].map((i) => (
-                  <FaRegStar className="text-[--redwood]" key={i} />
-                ))}
-              </div>
-              <h4 className="text-emphasize">{review.reviewerName}</h4>
-              <p className={fullStars >= 3 ? `text-[--blue-munsell]` : ``}>
-                {review.comment}
-              </p>
-            </div>
-          );
-        })}
+      <article className="flex flex-col flex-nowrap gap-3 sm:flex-wrap sm:flex-row justify-center">
+        {reviews.map((review, i) => (
+          <ProductSingleReview
+            id={i}
+            reviewComment={review.comment}
+            reviewRating={review.rating}
+            reviewerName={review.reviewerName}
+          ></ProductSingleReview>
+        ))}
       </article>
     </section>
   );
