@@ -3,7 +3,7 @@
 import PrimaryButton from "@/components/PrimaryButton";
 import PaymentProductCard from "@/components/PaymentProductCard";
 import useSWR from "swr";
-import ProductReviews from "@/components/ProductReviews";
+
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const Page = () => {
@@ -23,8 +23,6 @@ const Page = () => {
 
   return (
     <div>
-      <ProductReviews id={1}></ProductReviews>
-
       <h1 className="text-title text-center sm:text-left capitalize py-4 px-1">
         Your basket
       </h1>
