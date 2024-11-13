@@ -31,12 +31,13 @@ const ProductReviews = ({ reviews }) => {
       <article className="flex flex-col flex-nowrap gap-3 sm:flex-wrap sm:flex-row justify-center">
         {reviews.map((review, i) => (
           <ProductSingleReview
-            id={i}
+            id={review.id || i}
+            key={review.id || i}
             reviewComment={review.comment}
             reviewRating={review.rating}
             //
             reviewerName={review.reviewerName.split(" ")[0]}
-          ></ProductSingleReview>
+     />
         ))}
       </article>
     </section>
