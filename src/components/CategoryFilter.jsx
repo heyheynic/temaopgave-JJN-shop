@@ -2,12 +2,7 @@ import useSWR from "swr";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
-const CategoryFilter = ({ onCategoryChange }) => {
-  const { data: categories, error, isLoading } = useSWR("https://dummyjson.com/products/categories", fetcher);
-
-  if (error) return <div>Failed to load categories</div>; // Display error message if the data fetch fails
-  if (isLoading) return <div>Loading categories...</div>; // Display loading message while data is being fetched
-
+const CategoryFilter = ({ categories, onCategoryChange }) => {
   return (
     <div className="">
       <label htmlFor="category-select" className="sr-only">
@@ -21,8 +16,8 @@ const CategoryFilter = ({ onCategoryChange }) => {
           All Categories
         </option>
         {categories.map((category) => (
-          <option key={category.slug} value={category.slug} className="text-medium">
-            {category.name}
+          <option key={category} value={category} className="text-medium">
+            {category}
           </option>
         ))}
       </select>
