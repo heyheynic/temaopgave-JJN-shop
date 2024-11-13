@@ -12,7 +12,10 @@ import SearchBar from "@/components/SearchBar";
 const fetcher = (url) => fetch(url).then((res) => res.json()); // Fetcher function for SWR to fetch data from a URL
 
 const Page = () => {
-  const { data, error, isLoading } = useSWR("https://dummyjson.com/products?limit=50", fetcher); // Using SWR to fetch product data from an API
+  const { data, error, isLoading } = useSWR(
+    "https://dummyjson.com/products?limit=50",
+    fetcher
+  ); // Using SWR to fetch product data from an API
 
   // State to track the filtered list of products, selected category, and search query
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -25,11 +28,18 @@ const Page = () => {
   useEffect(() => {
     if (data) {
       // Filter products based on selected category
-      let products = selectedCategory === "all" ? data.products : data.products.filter((product) => product.category === selectedCategory);
+      let products =
+        selectedCategory === "all"
+          ? data.products
+          : data.products.filter(
+              (product) => product.category === selectedCategory
+            );
 
       // Further filter products based on search query
       if (searchQuery) {
-        products = products.filter((product) => product.title.toLowerCase().includes(searchQuery.toLowerCase())); // Case-insensitive search
+        products = products.filter((product) =>
+          product.title.toLowerCase().includes(searchQuery.toLowerCase())
+        ); // Case-insensitive search
       }
 
       // Set the filtered products state
@@ -60,10 +70,21 @@ const Page = () => {
   // Handles adding a product to the cart
   // parameter is the product object
   const addToCart = (product) => {
-    // prevChart checks the previous cart state to see if products have already been added
     setCart((prevCart) => {
-      // if item not already in cart, add it with a quantity of 1
-      return [...prevCart, { ...product, quantity: 1 }];
+      // checking if the product already exists in the cart
+      const existingProduct = prevCart.find((item) => item.id === product.id);
+
+      if (existingProduct) {
+        // if the product already exists, increment its quantity
+        return prevCart.map((item) =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      } else {
+        // if the product does not exist, add it to the cart with a quantity of 1
+        return [...prevCart, { ...product, quantity: 1 }];
+      }
     });
   };
 
@@ -76,7 +97,9 @@ const Page = () => {
       }
 
       // if newQuantity is greater than 0, it will update the products quantity by mapping throuch the cart
-      return prevCart.map((item) => (item.id === id ? { ...item, quantity: newQuantity } : item));
+      return prevCart.map((item) =>
+        item.id === id ? { ...item, quantity: newQuantity } : item
+      );
     });
   };
 
@@ -108,7 +131,7 @@ const Page = () => {
 
         {/* Render the filtered products as cards */}
         <ul className="grid gap-m mx-auto sm:grid-cols-3 lg:grid-cols-4 mb-m">
-          {filteredProducts.map(({ id, title, thumbnail, price, discountPercentage, stock }) => (
+          {/* {filteredProducts.map(({ id, title, thumbnail, price, discountPercentage, stock }) => (
             <ProductCard
               key={id}
               id={id}
@@ -119,15 +142,15 @@ const Page = () => {
               stock={stock}
               addToCart={addToCart} // Pass addToCart to ProductCard
             />
-          ))}
+          ))} */}
           {/* This also works, and here we don't have to explicitly pass the props */}
-          {/* {filteredProducts.map((product) => (
+          {filteredProducts.map((product) => (
             <ProductCard
               key={product.id}
-              {...product} // spread operator, takes all properties of product object, they get passed as props to ProductCard. However, that might be a bit redundant considering all of the props that exist in each object
+              product={product} // spread operator, takes all properties of product object, they get passed as props to ProductCard. However, that might be a bit redundant considering all of the props that exist in each object
               addToCart={addToCart} // Pass addToCart to ProductCard
             />
-          ))} */}
+          ))}
         </ul>
       </div>
     </div>
