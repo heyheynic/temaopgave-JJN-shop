@@ -28,7 +28,7 @@ const ProductSingleReview = ({
       </div>
       <h4 className="text-emphasize">{reviewerName}</h4>
       <p className={fullStars >= 3 ? `text-[--blue-munsell]` : ``}>
-        {reviewComment}
+        - {reviewComment}
       </p>
     </div>
   );
