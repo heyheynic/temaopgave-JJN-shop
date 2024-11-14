@@ -8,6 +8,7 @@ const PaymentProductCard = ({
   quantity,
   tags,
   discountPercentage,
+  title,
 }) => {
   const discountPrice = (discountPercentage * price) / 100;
   let newPrice = price - discountPrice;
@@ -15,9 +16,15 @@ const PaymentProductCard = ({
   return (
     <li
       key={id}
-      className="flex justify-start gap-1 border-2 border-[--redwood] rounded-md max-w-[65ch] "
+      className="flex justify-start gap-2 border-2 border-accent rounded-md max-w-[65ch] py-2xs px-xs"
     >
-      <Image src={thumbnail} width={150} height={100} alt="placeholder image" />
+      <Image
+        src={thumbnail}
+        width={150}
+        height={100}
+        alt={title}
+        className="object-contain"
+      />
       <div className="[&>*]:py-1">
         <h3 className="text-emphasize">{productTitle}</h3>
         <ul className="flex gap-2">
@@ -45,7 +52,7 @@ const PaymentProductCard = ({
           ""
         )}
       </div>
-      <span className="text-emphasize ml-[auto] px-2">x{quantity}</span>
+      <span className="text-normal self-center ml-[auto] px-2 italic text-secondary">x{quantity}</span>
     </li>
   );
 };

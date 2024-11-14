@@ -59,40 +59,40 @@ const PaymentContent = () => {
   if (error) return <div>Failed to load product data.</div>;
 
   return (
-    <div className="flex flex-col md:flex-row items-start justify-evenly max-w-[80dvw] min-h-[80vh] m-auto py-6">
-      <div className="">
-        <h1 className="text-title text-center sm:text-left capitalize py-4 px-1 my-3">
+    <div className="grid lg:grid-cols-[1fr,auto] items-start justify-evenly max-w-[80dvw] min-h-[80vh] m-auto w-fit py-6 gap-6 ">
+      <div className="col-start-1 col-span-full">
+        <h1 className="text-subtitle  py-4 px-1 my-3">
           Your basket
         </h1>
-
-        <ul className="flex flex-col gap-5 ">
-          {products.map((product) => (
-            <PaymentProductCard
-              key={product.id}
-              id={product.id}
-              productTitle={`Product ${product.title}`}
-              price={product.price}
-              quantity={product.quantity}
-              thumbnail={product.thumbnail}
-              tags={product.tags}
-              discountPercentage={product.discountPercentage}
-            />
-          ))}
-        </ul>
       </div>
 
-      <section className="flex flex-col gap-3 rounded-[5px] min-w-[100%] md:min-w-[40%] my-6 md:my-0  shadow-md text-sub-subtitle sticky top-3 py-3 px-5">
-        <div className="flex justify-between text-emphasize">
-          <h6>Delevery: </h6>
+      <ul className="flex flex-col gap-5 ">
+        {products.map((product) => (
+          <PaymentProductCard
+            key={product.id}
+            id={product.id}
+            title={product.title}
+            productTitle={`Product ${product.title}`}
+            price={product.price}
+            quantity={product.quantity}
+            thumbnail={product.thumbnail}
+            tags={product.tags}
+            discountPercentage={product.discountPercentage}
+          />
+        ))}
+      </ul>
+      <section className="flex flex-col gap-4 rounded-[5px] max-w-[80dvw]  my-6 md:my-0  shadow-md text-normal sticky top-3 py-m px-5">
+        <div className="flex justify-between text-normal">
+          <h6 className="font-bold">Delevery:</h6>
           <span className="underline">$0</span>
         </div>
 
-        <div className="flex justify-between text-emphasize">
-          <h6>Total:</h6>
+        <div className="flex justify-between ">
+          <h6 className="font-bold">Total:</h6>
           <span className="underline">${totalPrice.toFixed(2)}</span>
         </div>
 
-        <hr className="border-black border-2"></hr>
+        <hr className="border-black border"></hr>
 
         <div className="flex justify-between text-emphasize">
           <h6 className="text-bold">Total price:</h6>
@@ -104,7 +104,7 @@ const PaymentContent = () => {
           <FaCcAmex />
           <FaCcPaypal />
         </div>
-        <PrimaryButton theme="black" btnText="Go to payment" />
+        <PrimaryButton theme="red" btnText="Go to payment" />
       </section>
     </div>
   );
