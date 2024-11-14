@@ -83,7 +83,7 @@ const PaymentContent = () => {
       </ul>
       <section className="flex flex-col gap-4 rounded-[5px] max-w-[80dvw]  my-6 md:my-0  shadow-md text-normal sticky top-3 py-m px-5">
         <div className="flex justify-between text-normal">
-          <h6 className="font-bold">Delevery:</h6>
+          <h6 className="font-bold">Delivery:</h6>
           <span className="underline">$0</span>
         </div>
 
