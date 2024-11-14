@@ -10,7 +10,7 @@ const PaymentProductCard = ({
   discountPercentage,
 }) => {
   const discountPrice = (discountPercentage * price) / 100;
-  let newPrice = Math.floor(price - discountPrice);
+  let newPrice = price - discountPrice;
 
   return (
     <li
@@ -38,7 +38,9 @@ const PaymentProductCard = ({
           ${price}
         </p>
         {discountPercentage ? (
-          <p className="text-red-500 text-text font-bold">${newPrice}</p>
+          <p className="text-red-500 text-text font-bold">
+            ${newPrice.toFixed(2)}
+          </p>
         ) : (
           ""
         )}
