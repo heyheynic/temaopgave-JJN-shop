@@ -13,7 +13,7 @@ const Page = () => {
   const items = searchParams.get("items");
 
   const parseItems = (items) => {
-    return items.split("&").map((item) => {
+    return items.split(",").map((item) => {
       const [id, quantity] = item.split("-");
       return { id: parseInt(id), quantity: parseInt(quantity) };
     });
@@ -21,10 +21,7 @@ const Page = () => {
 
   const parsedItems = items ? parseItems(items) : []; // Set to empty array if no items
 
-  const { data, error, isLoading } = useSWR(
-    "https://dummyjson.com/products",
-    fetcher
-  );
+  const { data, error, isLoading } = useSWR("https://dummyjson.com/products", fetcher);
 
   const [products, setProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -46,10 +43,7 @@ const Page = () => {
   }, [items, data]);
 
   useEffect(() => {
-    const totalPrice = products.reduce(
-      (accumulator, product) => accumulator + product.price * product.quantity,
-      0
-    );
+    const totalPrice = products.reduce((accumulator, product) => accumulator + product.price * product.quantity, 0);
     setTotalPrice(totalPrice);
   }, [products]);
 
@@ -58,27 +52,17 @@ const Page = () => {
 
   return (
     <div>
-      <h1 className="text-title text-center sm:text-left capitalize py-4 px-1">
-        Your basket
-      </h1>
+      <h1 className="text-title text-center sm:text-left capitalize py-4 px-1">Your basket</h1>
 
       <ul className="grid grid-rows-[auto] gap-2 py-2 px-1 ">
         {products.map((product) => (
-          <PaymentProductCard
-            key={product.id}
-            id={product.id}
-            productTitle={`Product ${product.title}`}
-            price={product.price}
-            quantity={product.quantity}
-            thumbnail={product.thumbnail}
-          />
+          <PaymentProductCard key={product.id} id={product.id} productTitle={`Product ${product.title}`} price={product.price} quantity={product.quantity} thumbnail={product.thumbnail} />
         ))}
       </ul>
 
       <section className="text-sub-subtitle flex flex-col items-center justify-center text-center">
         <h4>
-          Your total is:{" "}
-          <span className="underline">${totalPrice.toFixed(2)}</span>
+          Your total is: <span className="underline">${totalPrice.toFixed(2)}</span>
         </h4>
         <PrimaryButton theme="black" btnText="Pay" />
       </section>

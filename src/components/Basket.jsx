@@ -10,13 +10,7 @@ import Link from "next/link";
 const Basket = ({ cart, updateCartQuantity }) => {
   const [isCartVisible, setIsCartVisible] = useState(false);
 
-
-   const selectedProducts = cart
-     .map(
-       (product) =>
-         `${product.id}-${product.quantity}`
-     )
-     .join("&");
+  const selectedProducts = cart.map((product) => `${product.id}-${product.quantity}`).join(",");
 
   const itemCounter = cart.length;
   const cartRef = useRef(null); // reference to the cart pop-up, this will make it so when one clicks outside of cart popup, it will close
@@ -55,46 +49,28 @@ const Basket = ({ cart, updateCartQuantity }) => {
   return (
     <div className="relative">
       <div className="cart__icon__and__badge ">
-        <TbShoppingBag
-          className="icons text-accent bg-white absolute hover:text-secondary cursor-pointer"
-          onClick={toggleCartVisibility}
-        />
-        <span className="badge__counter bg-accent text-white rounded-full py-3xs px-2xs relative left-4 bottom-4">
-          {itemCounter}
-        </span>
+        <TbShoppingBag className="icons text-accent bg-white absolute hover:text-secondary cursor-pointer" onClick={toggleCartVisibility} />
+        <span className="badge__counter bg-accent text-white rounded-full py-3xs px-2xs relative left-4 bottom-4">{itemCounter}</span>
       </div>
 
       {isCartVisible && (
         <div
           ref={cartRef} // attach the ref to the pop-up container
-          className="cart__popup__container absolute shadow-lg bg-white border border-medium rounded-lg py-2xs px-xs mt-m w-72 -right-2 z-50"
-        >
+          className="cart__popup__container absolute shadow-lg bg-white border border-medium rounded-lg py-2xs px-xs mt-m w-72 -right-2 z-50">
           <div className="cart__popup__header flex justify-between items-center">
             <h3 className="text-lg font-semibold justify-center">Your Cart</h3>
-            <button
-              onClick={toggleCartVisibility}
-              className="text-dark hover:text-black"
-            >
+            <button onClick={toggleCartVisibility} className="text-dark hover:text-black">
               &times;
             </button>
           </div>
           <ul className="cart__product__list grid grid-rows-[auto] gap-2 py-2 px-1">
             {cart.map((product) => (
-              <BasketProductCard
-                key={product.id}
-                id={product.id}
-                thumbnail={product.thumbnail}
-                title={product.title}
-                price={product.price}
-                stock={product.stock}
-                quantity={product.quantity}
-                updateCartQuantity={updateCartQuantity}
-              />
+              <BasketProductCard key={product.id} id={product.id} thumbnail={product.thumbnail} title={product.title} price={product.price} stock={product.stock} quantity={product.quantity} updateCartQuantity={updateCartQuantity} />
             ))}
           </ul>
 
           <div className="cart__action">
-            <Link href={`./payment?items=${selectedProducts}`} >
+            <Link href={`./payment?items=${selectedProducts}`}>
               <PrimaryButton btnText={"Proceed to checkout"} theme="red" />
             </Link>
           </div>
