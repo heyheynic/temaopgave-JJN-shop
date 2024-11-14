@@ -94,7 +94,7 @@ const PaymentContent = () => {
 
         <hr className="border-black border"></hr>
 
-        <div className="flex justify-between text-emphasize">
+        <div className="flex justify-between text-emphasize gap-m">
           <h6 className="text-bold">Total price:</h6>
           <span className="underline">${totalPrice.toFixed(2)}</span>
         </div>
