@@ -136,7 +136,7 @@ const Page = () => {
           <p className="mb-3xs">
             You have viewed {Math.min(visibleProductCount, filteredProducts.length)} of {filteredProducts.length} products
           </p>
-          {visibleProductCount < filteredProducts.length && <PrimaryButton btnText="load more" onClick={() => setVisibleProductCount(Math.min(visibleProductCount + 24, filteredProducts.length))} />}
+          {visibleProductCount < filteredProducts.length && <PrimaryButton btnText="load more" theme="white" onClick={() => setVisibleProductCount(Math.min(visibleProductCount + 24, filteredProducts.length))} />}
         </div>
       </div>
     </div>
