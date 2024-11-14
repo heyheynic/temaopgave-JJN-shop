@@ -7,10 +7,12 @@ import BasketProductCard from "./BasketProductCard";
 import PrimaryButton from "./PrimaryButton";
 import Link from "next/link";
 
-const Basket = ({ cart, updateCartQuantity }) => {
+const Basket = ({ cart, updateCartQuantity, discountPercentage }) => {
   const [isCartVisible, setIsCartVisible] = useState(false);
 
-  const selectedProducts = cart.map((product) => `${product.id}-${product.quantity}`).join(",");
+  const selectedProducts = cart
+    .map((product) => `${product.id}-${product.quantity}`)
+    .join(",");
 
   //  calculates the total item count by iterating over each product in the cart and adding its quantity to the total
   const itemCounter = cart.reduce((total, item) => total + item.quantity, 0);
@@ -86,6 +88,7 @@ const Basket = ({ cart, updateCartQuantity }) => {
                 price={product.price}
                 stock={product.stock}
                 quantity={product.quantity}
+                discountPercentage={product.discountPercentage}
                 updateCartQuantity={updateCartQuantity}
               />
             ))}

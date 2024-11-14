@@ -61,9 +61,7 @@ const PaymentContent = () => {
   return (
     <div className="grid lg:grid-cols-[1fr,auto] items-start justify-evenly max-w-[80dvw] min-h-[80vh] m-auto w-fit py-6 gap-6 ">
       <div className="col-start-1 col-span-full">
-        <h1 className="text-subtitle  py-4 px-1 my-3">
-          Your basket
-        </h1>
+        <h1 className="text-subtitle  py-4 px-1 my-3">Your basket</h1>
       </div>
 
       <ul className="flex flex-col gap-5 ">

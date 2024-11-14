@@ -79,6 +79,7 @@ const ProductCard = ({
             btnText={"Add to Cart"}
             theme={"red"}
             onClick={handleAddToCart}
+            discountedPrice={discountedPrice}
           />
         ) : (
           <PrimaryButton btnText={"Sold Out"} theme={"soldOut"} />

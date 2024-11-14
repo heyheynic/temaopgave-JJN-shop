@@ -9,6 +9,7 @@ const BasketProductCard = ({
   stock,
   quantity,
   updateCartQuantity,
+  discountPercentage,
 }) => {
   // increment function
   const increment = () => {
@@ -39,10 +40,17 @@ const BasketProductCard = ({
         height={100}
         alt={title}
         className="border dark:bg-slate-100"
-     />
+      />
       <div className="flex flex-col justify-between">
         <h3 className="text-empahize font-medium">{title}</h3>
-        <p className="text-text">${price}</p>
+
+        <div className="flex gap-2">
+          <span className="line-through text-medium">${price}</span>
+          <p className="text-text font-semibold text-red-600">
+            $
+            {(price - (price / 100) * discountPercentage).toFixed(2)} 
+          </p>
+        </div>
         <div className="quantity__counter__container flex items-center space-x-4 ">
           <PrimaryButton
             onClick={decrement}
