@@ -8,18 +8,17 @@ import Basket from "@/components/Basket";
 import CategoryFilter from "@/components/CategoryFilter";
 import ProductCard from "@/components/ProductCard";
 import SearchBar from "@/components/SearchBar";
+import PrimaryButton from "@/components/PrimaryButton";
 
 const fetcher = (url) => fetch(url).then((res) => res.json()); // Fetcher function for SWR to fetch data from a URL
 
 const Page = () => {
-  const { data, error, isLoading } = useSWR(
-    "https://dummyjson.com/products?limit=50",
-    fetcher
-  ); // Using SWR to fetch product data from an API
+  const { data, error, isLoading } = useSWR("https://dummyjson.com/products?limit=100", fetcher); // Using SWR to fetch product data from an API
 
   // State to track the filtered list of products, selected category, and search query
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [filteredCategories, setFilteredCategories] = useState([]);
+  const [visibleProductCount, setVisibleProductCount] = useState(24); // Initial limit set to 24
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [cart, setCart] = useState([]); // State to track items in the basket
@@ -28,18 +27,11 @@ const Page = () => {
   useEffect(() => {
     if (data) {
       // Filter products based on selected category
-      let products =
-        selectedCategory === "all"
-          ? data.products
-          : data.products.filter(
-              (product) => product.category === selectedCategory
-            );
+      let products = selectedCategory === "all" ? data.products : data.products.filter((product) => product.category === selectedCategory);
 
       // Further filter products based on search query
       if (searchQuery) {
-        products = products.filter((product) =>
-          product.title.toLowerCase().includes(searchQuery.toLowerCase())
-        ); // Case-insensitive search
+        products = products.filter((product) => product.title.toLowerCase().includes(searchQuery.toLowerCase())); // Case-insensitive search
       }
 
       // Set the filtered products state
@@ -58,6 +50,9 @@ const Page = () => {
 
       // When reduce is done looping through all products, `categoriesWithItems` will be an array of unique categories that have at least one product.
       setFilteredCategories(categoriesWithItems);
+
+      // reset the VisibleProductCount to 24 whenever data, selected category, or search query changes
+      setVisibleProductCount(24);
     }
   }, [data, selectedCategory, searchQuery]); // This effect runs whenever the data, selectedCategory, or searchQuery changes
 
@@ -76,11 +71,7 @@ const Page = () => {
 
       if (existingProduct) {
         // if the product already exists, increment its quantity
-        return prevCart.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
+        return prevCart.map((item) => (item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item));
       } else {
         // if the product does not exist, add it to the cart with a quantity of 1
         return [...prevCart, { ...product, quantity: 1 }];
@@ -97,15 +88,16 @@ const Page = () => {
       }
 
       // if newQuantity is greater than 0, it will update the products quantity by mapping throuch the cart
-      return prevCart.map((item) =>
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      );
+      return prevCart.map((item) => (item.id === id ? { ...item, quantity: newQuantity } : item));
     });
   };
 
   // Handle errors and loading states
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
+
+  const remainingProducts = filteredProducts.length - visibleProductCount; // calculate remaining products to display on the "Load More" button
+  const productsToDisplay = filteredProducts.slice(0, visibleProductCount); // shorten/lengthen array of product depending on the number of visible products
 
   return (
     <div className="max-w-[80dvw] m-auto">
@@ -131,27 +123,21 @@ const Page = () => {
 
         {/* Render the filtered products as cards */}
         <ul className="grid gap-m mx-auto sm:grid-cols-3 lg:grid-cols-4 mb-m">
-          {/* {filteredProducts.map(({ id, title, thumbnail, price, discountPercentage, stock }) => (
-            <ProductCard
-              key={id}
-              id={id}
-              title={title}
-              thumbnail={thumbnail}
-              price={price}
-              discountPercentage={discountPercentage}
-              stock={stock}
-              addToCart={addToCart} // Pass addToCart to ProductCard
-            />
-          ))} */}
-          {/* This also works, and here we don't have to explicitly pass the props */}
-          {filteredProducts.map((product) => (
+          {productsToDisplay.map((product) => (
             <ProductCard
               key={product.id}
-              product={product} // spread operator, takes all properties of product object, they get passed as props to ProductCard. However, that might be a bit redundant considering all of the props that exist in each object
+              product={product}
               addToCart={addToCart} // Pass addToCart to ProductCard
             />
           ))}
         </ul>
+
+        <div className="w-full flex flex-col items-center justify-center mt-s mb-l">
+          <p className="mb-3xs">
+            You have viewed {Math.min(visibleProductCount, filteredProducts.length)} of {filteredProducts.length} products
+          </p>
+          {visibleProductCount < filteredProducts.length && <PrimaryButton btnText="load more" onClick={() => setVisibleProductCount(Math.min(visibleProductCount + 24, filteredProducts.length))} />}
+        </div>
       </div>
     </div>
   );
