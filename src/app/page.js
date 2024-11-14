@@ -10,7 +10,7 @@ export default function Home() {
             Whatever you need.
           </h1>
           <span className="index__title__smaller__text text-emphasize md:col-start-1 text-dark">
-            Whenever you need. At your hands.
+            Whenever you need it. At your hands.
           </span>
           <div
             className="index__button md:col-start-2 
