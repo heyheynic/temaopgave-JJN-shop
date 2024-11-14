@@ -12,7 +12,9 @@ const Basket = ({ cart, updateCartQuantity }) => {
 
   const selectedProducts = cart.map((product) => `${product.id}-${product.quantity}`).join(",");
 
-  const itemCounter = cart.length;
+  //  calculates the total item count by iterating over each product in the cart and adding its quantity to the total
+  const itemCounter = cart.reduce((total, item) => total + item.quantity, 0);
+
   const cartRef = useRef(null); // reference to the cart pop-up, this will make it so when one clicks outside of cart popup, it will close
 
   // Toggles between true/false
