@@ -3,12 +3,12 @@ const PrimaryButton = ({ btnText, theme = "default", onClick }) => {
     theme === "red"
       ? "bg-accent "
       : theme === "white"
-      ? "bg-white text-black outline outline-2 hover:outline-none"
+      ? "bg-[--background] text-[--foreground] outline outline-2 hover:outline-none"
       : theme === "black"
-      ? "bg-black"
+      ? "bg-[--foreground] text-[--background]"
       : theme === "soldOut"
-      ? "bg-dark hover:bg-dark cursor-default"
-      : "bg-dark "; // default
+      ? "bg-[--foreground] hover:bg-[--foreground] cursor-default"
+      : "bg-[--foreground] "; // default
   return (
     <div className={`btn text-normal ${themes}`} onClick={onClick}>
       {btnText}
