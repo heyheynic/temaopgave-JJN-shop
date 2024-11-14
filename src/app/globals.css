@@ -60,15 +60,12 @@
   :root {
     --background: #1b1917;
     --foreground: #f4f4f4ff;
-     --white-smoke: #1b1917;
-  --redwood: #b45f69;
-  --ebony: #a7b0a0;
-  --ecru: rgb(208, 193, 150);
+    --white-smoke: #1b1917;
+    --redwood: #b45f69;
+    --ebony: #a7b0a0;
+    --ecru: rgb(208, 193, 150);
 
-  --blue-munsell: #66c7d6;
-  
-
-
+    --blue-munsell: #66c7d6;
   }
 }
 
@@ -84,7 +81,6 @@ body {
   background-size: cover;
   background-position: center;
 }
-
 
 @layer utilities {
   .text-normal {
@@ -110,10 +106,10 @@ body {
 @layer components {
   .btn {
     @apply py-2xs px-xs w-fit h-fit rounded-md hover:bg-black hover:text-white drop-shadow-lg active:bg-dark active:text-white text-white text-nowrap cursor-pointer
-    dark:text-[--foreground] ;
+    dark:text-[--foreground];
   }
 
   .icons {
-   @apply  rounded-md w-fit p-3xs size-m cursor-pointer drop-shadow-lg hover:scale-105 transition duration-75;
+    @apply rounded-md w-fit p-3xs size-m cursor-pointer drop-shadow-lg hover:scale-105 transition duration-75;
   }
 }

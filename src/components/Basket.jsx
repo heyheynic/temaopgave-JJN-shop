@@ -63,7 +63,9 @@ const Basket = ({ cart, updateCartQuantity }) => {
       {isCartVisible && (
         <div
           ref={cartRef} // attach the ref to the pop-up container
-          className="cart__popup__container absolute shadow-lg bg-white border border-medium rounded-lg py-2xs px-xs mt-m w-72 -right-2 z-50"
+          className="cart__popup__container absolute shadow-lg bg-white border border-medium rounded-lg pt-xs pb-5 px-xs mt-m min-w-[80dvw]
+         sm:min-w-max  md:min-w-max lg:min-w-max 
+          -right-2 z-50 grid gap-2"
         >
           <div className="cart__popup__header flex justify-between items-center">
             <h3 className="text-lg font-semibold justify-center">Your Cart</h3>
@@ -74,7 +76,7 @@ const Basket = ({ cart, updateCartQuantity }) => {
               &times;
             </button>
           </div>
-          <ul className="cart__product__list grid grid-rows-[auto] gap-2 py-2 px-1">
+          <ul className="cart__product__list grid grid-rows-[auto] gap-4 py-2 px-1">
             {cart.map((product) => (
               <BasketProductCard
                 key={product.id}
@@ -89,7 +91,7 @@ const Basket = ({ cart, updateCartQuantity }) => {
             ))}
           </ul>
 
-          <div className="cart__action">
+          <div className="cart__action pt-xs">
             <Link href={`./payment?items=${selectedProducts}`}>
               <PrimaryButton btnText={"Proceed to checkout"} theme="red" />
             </Link>

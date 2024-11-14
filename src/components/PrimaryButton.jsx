@@ -8,7 +8,7 @@ const PrimaryButton = ({ btnText, theme = "default", onClick }) => {
       ? "bg-[--foreground] text-[--background]"
       : theme === "soldOut"
       ? "bg-[--foreground] text-[--background] hover:bg-[--foreground] cursor-default"
-      : "bg-[--foreground] "; // default
+      : "bg-dark dark:text-[--background]"; // default
   return (
     <div className={`btn text-normal ${themes}`} onClick={onClick}>
       {btnText}
