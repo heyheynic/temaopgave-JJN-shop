@@ -1,5 +1,5 @@
 "use client";
-
+import { Suspense } from "react";
 import PrimaryButton from "@/components/PrimaryButton";
 import PaymentProductCard from "@/components/PaymentProductCard";
 import { useSearchParams } from "next/navigation";
@@ -10,7 +10,7 @@ import { FaCcVisa, FaCcMastercard, FaCcAmex, FaCcPaypal } from "react-icons/fa";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
-const Page = () => {
+const PaymentContent = () => {
   const searchParams = useSearchParams();
   const items = searchParams.get("items");
 
@@ -109,5 +109,11 @@ const Page = () => {
     </div>
   );
 };
+
+const Page = () => (
+  <Suspense fallback={<div>Loading payment information...</div>}>
+    <PaymentContent />
+  </Suspense>
+);
 
 export default Page;
