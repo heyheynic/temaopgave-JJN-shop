@@ -1,14 +1,17 @@
 import Image from "next/image";
 
 const PaymentProductCard = ({
-  shipping,
   id,
   thumbnail,
   productTitle,
   price,
   quantity,
   tags,
+  discountPercentage,
 }) => {
+  const discountPrice = (discountPercentage * price) / 100;
+  let newPrice = Math.floor(price - discountPrice);
+
   return (
     <li
       key={id}
@@ -25,9 +28,20 @@ const PaymentProductCard = ({
           ))}
         </ul>
 
-        <p className="text-text font-bold">${price}</p>
-
-        <p>{shipping}</p>
+        <p
+          className={
+            discountPercentage
+              ? "line-through text-[--dun] "
+              : "text-text font-bold"
+          }
+        >
+          ${price}
+        </p>
+        {discountPercentage ? (
+          <p className="text-red-500 text-text font-bold">${newPrice}</p>
+        ) : (
+          ""
+        )}
       </div>
       <span className="text-emphasize ml-[auto] px-2">x{quantity}</span>
     </li>

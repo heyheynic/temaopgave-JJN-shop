@@ -6,6 +6,8 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
 
+import { FaCcVisa, FaCcMastercard, FaCcAmex, FaCcPaypal } from "react-icons/fa";
+
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const Page = () => {
@@ -73,6 +75,7 @@ const Page = () => {
               quantity={product.quantity}
               thumbnail={product.thumbnail}
               tags={product.tags}
+              discountPercentage={product.discountPercentage}
             />
           ))}
         </ul>
@@ -95,7 +98,12 @@ const Page = () => {
           <h6 className="text-bold">Total price:</h6>
           <span className="underline">${totalPrice.toFixed(2)}</span>
         </div>
-
+        <div className="flex gap-4 ">
+          <FaCcVisa />
+          <FaCcMastercard />
+          <FaCcAmex />
+          <FaCcPaypal />
+        </div>
         <PrimaryButton theme="black" btnText="Go to payment" />
       </section>
     </div>
