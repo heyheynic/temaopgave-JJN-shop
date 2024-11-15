@@ -108,7 +108,7 @@ const Basket = ({ cart, updateCartQuantity }) => {
             <Link href={`./payment?items=${selectedProducts}`}>
               <PrimaryButton btnText={"Proceed to checkout"} theme="red" />
             </Link>
-            <div>Total: ${totalPrice.toFixed(2)}</div>
+            <div className="text-end">Total: ${totalPrice.toFixed(2)}</div>
           </div>
         </div>
       )}
