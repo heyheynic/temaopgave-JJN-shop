@@ -104,11 +104,11 @@ const Basket = ({ cart, updateCartQuantity }) => {
             ))}
           </ul>
 
-          <div className="cart__action pt-xs flex justify-between items-center">
+          <div className="cart__action pt-xs flex justify-between gap-2 items-center">
             <Link href={`./payment?items=${selectedProducts}`}>
               <PrimaryButton btnText={"Proceed to checkout"} theme="red" />
             </Link>
-            <div>Total cost: ${totalPrice.toFixed(2)}</div>
+            <div>Total: ${totalPrice.toFixed(2)}</div>
           </div>
         </div>
       )}
