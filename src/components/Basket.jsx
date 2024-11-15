@@ -21,13 +21,10 @@ const Basket = ({ cart, updateCartQuantity }) => {
   const totalPrice = cart.reduce(
     (total, product) =>
       total +
-     product.price -
-      ((product.price / 100) *
-        product.discountPercentage *
-        product.quantity),
+      (product.price - (product.price * product.discountPercentage) / 100) *
+        product.quantity,
     0
   );
-
 
   const cartRef = useRef(null); // reference to the cart pop-up, this will make it so when one clicks outside of cart popup, it will close
 

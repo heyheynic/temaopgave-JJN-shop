@@ -47,9 +47,13 @@ const PaymentContent = () => {
     }
   }, [items, data]);
 
+  // calculating total price (discounted)
   useEffect(() => {
     const totalPrice = products.reduce(
-      (accumulator, product) => accumulator + product.price * product.quantity,
+      (total, product) =>
+        total +
+        (product.price - (product.price * product.discountPercentage) / 100) *
+          product.quantity,
       0
     );
     setTotalPrice(totalPrice);
