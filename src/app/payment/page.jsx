@@ -30,6 +30,7 @@ const PaymentContent = () => {
 
   const [products, setProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [discountedAmount, setDiscountedAmount] = useState(0)
 
   useEffect(() => {
     if (data && parsedItems.length > 0) {
@@ -59,6 +60,16 @@ const PaymentContent = () => {
     setTotalPrice(totalPrice);
   }, [products]);
 
+  // calculating discounted amount
+  useEffect(() => {
+    const discountedAmount = products.reduce(
+      (total, product) =>
+        total + (product.price * product.discountPercentage) / 100 * product.quantity,
+      0
+    );
+    setDiscountedAmount(discountedAmount)
+  }, [products])
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Failed to load product data.</div>;
 
@@ -85,11 +96,17 @@ const PaymentContent = () => {
       </ul>
       <section className="flex flex-col gap-4 rounded-[5px] max-w-[80dvw]  my-6 md:my-0  shadow-md text-normal sticky top-3 py-m px-5">
         <div className="flex justify-between text-normal">
+          <h6 className="font-bold">Discount:</h6>
+          <span className="underline text-red-600">
+            ${discountedAmount.toFixed(2)}
+          </span>
+        </div>
+        <div className="flex justify-between text-normal">
           <h6 className="font-bold">Delivery:</h6>
           <span className="underline">$0</span>
         </div>
 
-        <div className="flex justify-between ">
+        <div className="flex justify-between text-em ">
           <h6 className="font-bold">Total:</h6>
           <span className="underline">${totalPrice.toFixed(2)}</span>
         </div>

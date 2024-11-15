@@ -8,13 +8,13 @@ const PaymentProductCard = ({
   quantity,
   tags,
   discountPercentage,
-  title,
+  title
 }) => {
   const discountPrice = (discountPercentage * price) / 100;
   let newPrice = price - discountPrice;
 
   const totalPrice = newPrice * quantity;
-
+console.log(discountPrice)
   return (
     <li
       key={id}
