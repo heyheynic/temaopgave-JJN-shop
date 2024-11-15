@@ -1,5 +1,5 @@
 "use client";
-import { Suspense } from "react";
+import { Suspense } from "react"; // used for fallback UI while looading data
 import PrimaryButton from "@/components/PrimaryButton";
 import PaymentProductCard from "@/components/PaymentProductCard";
 import { useSearchParams } from "next/navigation";
@@ -8,23 +8,28 @@ import useSWR from "swr";
 
 import { FaCcVisa, FaCcMastercard, FaCcAmex, FaCcPaypal } from "react-icons/fa";
 
+// fetcher function for SWR to recieve data from the URL
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const PaymentContent = () => {
-  const searchParams = useSearchParams();
-  const items = searchParams.get("items");
+  const searchParams = useSearchParams(); // retrieves search parameters from the URL (items)
+  const items = searchParams.get("items"); // the search parameters are set to be "items"
 
+  // parsing/splitting the url string into smaller pieces (splitting each object at every ",")
   const parseItems = (items) => {
     return items.split(",").map((item) => {
+      // maps through each item and splits them again between every "-", and assigns first "item" is "id", and the second item is the "quantity". 
       const [id, quantity] = item.split("-");
-      return { id: parseInt(id), quantity: parseInt(quantity) };
+      return { id: parseInt(id), quantity: parseInt(quantity) }; //returns an object with "id" and "quantity"
     });
   };
 
-  const parsedItems = items ? parseItems(items) : []; // Set to empty array if no items
+  // if "items" exists in the URL, they will be parsed, otherwise, use an empty array
+  const parsedItems = items ? parseItems(items) : []; 
 
+  // fetching product data using SWR
   const { data, error, isLoading } = useSWR(
-    "https://dummyjson.com/products",
+    "https://dummyjson.com/products?limit=100",
     fetcher
   );
 
@@ -32,21 +37,20 @@ const PaymentContent = () => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [discountedAmount, setDiscountedAmount] = useState(0)
 
+  // effect to filter the products based on the parsedItems
   useEffect(() => {
+    // both data and parsedItems have to be available before filtering product
     if (data && parsedItems.length > 0) {
       const filteredProducts = parsedItems
         .map((item) => {
-          const product = data.products.find((p) => p.id === item.id);
-          return product ? { ...product, quantity: item.quantity } : null;
+          const product = data.products.find((p) => p.id === item.id); // find the products by the ID that had been parsed
+          return product ? { ...product, quantity: item.quantity } : null; // if product returned, add the quantity from parsedItems and return that
         })
-        .filter((product) => product !== null);
+        .filter((product) => product !== null); // filter out the null product that were not found
 
-      console.log("All products:", data?.products);
-      console.log("Filtered Products:", filteredProducts); // Log filtered products
-
-      setProducts(filteredProducts);
+      setProducts(filteredProducts); // update the state of filtered products [products, setProducts]
     }
-  }, [items, data]);
+  }, [items, data]); // rerun useEffect when items or data changes.
 
   // calculating total price (discounted)
   useEffect(() => {
