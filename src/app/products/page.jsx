@@ -99,6 +99,8 @@ const Page = () => {
   const remainingProducts = filteredProducts.length - visibleProductCount; // calculate remaining products to display on the "Load More" button
   const productsToDisplay = filteredProducts.slice(0, visibleProductCount); // shorten/lengthen array of product depending on the number of visible products
 
+
+  
   return (
     <div className="max-w-[80dvw] m-auto">
       <div className="flex justify-between items-center">

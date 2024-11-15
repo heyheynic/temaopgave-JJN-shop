@@ -7,7 +7,7 @@ import BasketProductCard from "./BasketProductCard";
 import PrimaryButton from "./PrimaryButton";
 import Link from "next/link";
 
-const Basket = ({ cart, updateCartQuantity, discountPercentage }) => {
+const Basket = ({ cart, updateCartQuantity }) => {
   const [isCartVisible, setIsCartVisible] = useState(false);
 
   const selectedProducts = cart
@@ -16,6 +16,18 @@ const Basket = ({ cart, updateCartQuantity, discountPercentage }) => {
 
   //  calculates the total item count by iterating over each product in the cart and adding its quantity to the total
   const itemCounter = cart.reduce((total, item) => total + item.quantity, 0);
+
+  // calculating the total price by iterating over each product in the cart
+  const totalPrice = cart.reduce(
+    (total, product) =>
+      total +
+     product.price -
+      ((product.price / 100) *
+        product.discountPercentage *
+        product.quantity),
+    0
+  );
+
 
   const cartRef = useRef(null); // reference to the cart pop-up, this will make it so when one clicks outside of cart popup, it will close
 
@@ -78,6 +90,7 @@ const Basket = ({ cart, updateCartQuantity, discountPercentage }) => {
               &times;
             </button>
           </div>
+
           <ul className="cart__product__list grid grid-rows-[auto] gap-4 py-2 px-1">
             {cart.map((product) => (
               <BasketProductCard
@@ -94,10 +107,11 @@ const Basket = ({ cart, updateCartQuantity, discountPercentage }) => {
             ))}
           </ul>
 
-          <div className="cart__action pt-xs">
+          <div className="cart__action pt-xs flex justify-between items-center">
             <Link href={`./payment?items=${selectedProducts}`}>
               <PrimaryButton btnText={"Proceed to checkout"} theme="red" />
             </Link>
+            <div>Total cost: ${totalPrice.toFixed(2)}</div>
           </div>
         </div>
       )}
